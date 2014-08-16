@@ -1,0 +1,495 @@
+// This file details customised abilities for your addon
+// Abilities are complicated, so heres an example
+// Parts that are not self-explanatory are commented
+"DOTAAbilities"
+{
+	"Version"		"1"
+
+	"skill_one"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_TOGGLE"
+		"BaseClass" "ability_datadriven"
+		"OnToggleOn"
+		{
+   			"ApplyModifier"
+            {
+            	"ModifierName"  "normal_name"
+            	"Target" "CASTER"
+            }
+            "RunScript"
+            {
+				"ScriptFile"		"scripts/vscripts/custom_abilities.lua"
+				"Function"			"swapper"
+				"call"				"s1_on"
+				"Modifiers"				"nromal_name"
+            }
+		}
+		"OnToggleOff"
+		{
+   			"RemoveModifier"
+            {
+            	"ModifierName"  "normal_name"
+            	"Target" "CASTER"
+            }
+            "RunScript"
+            {
+				"ScriptFile"		"scripts/vscripts/custom_abilities.lua"
+				"Function"			"swapper"
+				"call"				"s1_off"
+            }
+		}		
+		"Modifiers"
+		{
+
+			"normal_name"
+			{
+				///"Passive" "1"
+				"AttachEffect"
+				{
+					"Target" "CASTER"
+					"EffectName" "generic_buff_1"
+					"EffectAttachType" "follow_overhead"
+					"EffectLifeDurationScale" "1"
+					"EffectColorA" "0 255 255"
+				}
+			}
+		}
+
+	}
+
+	"skill_two"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_TOGGLE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE	"
+		"BaseClass" "ability_datadriven"
+		"OnToggleOn"
+		{
+   			"ApplyModifier"
+            {
+            	"ModifierName"  "SILLYNAME"
+            	"Target" "CASTER"
+            }
+             "RunScript"
+            {
+				"ScriptFile"		"scripts/vscripts/custom_abilities.lua"
+				"Function"			"swapper"
+				"call"				"s2_on"
+            }
+		}
+		"OnToggleOff"
+		{
+   			"RemoveModifier"
+            {
+            	"ModifierName"  "SILLYNAME"
+            	"Target" "CASTER"
+            }
+            "RunScript"
+            {
+				"ScriptFile"		"scripts/vscripts/custom_abilities.lua"
+				"Function"			"swapper"
+				"call"				"s2_off"
+            }
+		}		
+		"Modifiers"
+		{
+
+
+			"SILLYNAME"
+			{
+				///"Passive" "1"
+				"AttachEffect"
+				{
+					"Target" "CASTER"
+					"EffectName" "generic_buff_1"
+					"EffectAttachType" "follow_overhead"
+					"EffectLifeDurationScale" "1"
+					"EffectColorA" "0 255 255"
+				}
+			}
+		}
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	"drop_item"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"BaseClass" "ability_datadriven"
+		"AbilityCastRange"				"0"
+		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
+
+		"AbilityCooldown"				"7.0 6.5 6 5.5"
+		//"AbilityDuration"				"3 3 3 3"
+
+		"AbilityDamage"					"10"
+
+		"AbilityManaCost"				"90 90 90 90"
+
+		"OnSpellStart"
+		{
+			"RunScript"
+				{
+					"ScriptFile"		"scripts/vscripts/custom_abilities.lua"
+					"Function"			"dropItem"
+				}
+		}
+	}
+
+	"custom_rocket_barrage"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"
+		"BaseClass" "ability_datadriven"
+		
+		"AbilityCastRange"				"0"
+		"AbilityCastPoint"				"0.3 0.3 0.3 0.3"
+
+		"AbilityCooldown"				"7.0 6.5 6 5.5"
+
+		"AbilityDamage"					"100"
+
+		"AbilityManaCost"				"90 90 90 90"
+
+		"OnSpellStart"
+		{
+			"CreateThinker"
+   			{
+   				"ModifierName" "minithinker"
+    			"Target" "CASTER"
+   			}
+   			"ApplyModifier"
+            {
+            	"ModifierName"  "fx_test_modifier"
+            	"Target" "CASTER"
+            	"Duration" "%duration"
+            }
+		}
+
+		"Modifiers"
+		{
+			"minithinker"
+			{
+				"Duration" "%duration"
+				"ThinkInterval" "%tick_rate"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"		"scripts/vscripts/custom_abilities.lua"
+						"Function"			"fireRockets"
+						"radius"			"%radius"
+					}
+				}	
+			}
+
+			"fx_test_modifier"
+			{
+				///"Passive" "1"
+				"AttachEffect"
+				{
+					"Target" "CASTER"
+					"EffectName" "generic_buff_1"
+					"EffectAttachType" "follow_overhead"
+					"EffectLifeDurationScale" "1"
+					"EffectColorA" "255 255 0"
+				}
+			}
+		}
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius"				"250"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"tick_rate"				"0.5"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration"				"3 3 3 4"
+			}
+		}
+	}	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    "place_tower"
+        {
+            // All abilites require a base class, and since this class is not simply over-riding an old skill, it must be "data_driven"
+            "BaseClass" "ability_datadriven"
+            // We require blah_POINT to gain the "Target" parameter for the lua functions, and blah_AOE to display the aoe when placing the tower
+            "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE" 
+            // These aren't important, but make testing a tad easier
+            "AbilityTextureName" "axe_battle_hunger"
+            "Ability Cast Range" "0"
+            "Ability Cast Point" "0"
+            
+            // This is important. This allows us to see the area the tower will be placed on. You ned to make this the same as PLACED_BUILDING_RADIUS in the lua script for consistency.
+            "AOERadius" "45"
+
+            // When we start the spell (ie, after we have clicked the location we want)
+            "OnSpellStart"
+            {
+                // We want to run a lua script
+                "RunScript"
+                {
+                    // The script file we call
+                    "ScriptFile"		"scripts/vscripts/custom_abilities.lua"
+                    // The specific function we want
+                    "Function"			"placeBuilding"
+                    // Extra info we want passed to the lua file
+                    "Target" "POINT"
+                }		
+            }
+        }
+
+
+
+
+
+	"place_towerold"
+	{
+		"BaseClass" "ability_datadriven"
+		"AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE" 
+		"AbilityManaCost" "0"
+		"AbilityTextureName" "axe_battle_hunger"
+		"Ability Cast Range" "0"
+		"Ability Cast Point" "0"
+		"AOERadius"						"50"
+		//"AbilityChannelTime" "150"
+
+		"OnSpellStart"
+		{
+			"CreateThinker" "thing_thinker"
+			"RunScript"
+			{
+				"ScriptFile"		"scripts/vscripts/custom_abilities.lua"
+				"Function"			"placeBuilding"
+				// target_points is where you aim
+				"Target" "POINT"
+				//"Aim" "POINT"
+			}		
+		}
+	}
+
+	"basic_ability"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"				"ability_datadriven"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT"
+		"AbilityTextureName"	"axe_battle_hunger"
+		"Passive" "1"
+		// Modifiers
+		//-------------------------------------------------------------------------------------------------------------
+		"OnSpellStart"
+			{
+				"CreateThinker"
+   				{
+   					"ModifierName" "minithinker"
+    				"Target" "CASTER"
+   				}
+			}
+
+		"Modifiers"
+		{
+			"minithinker"
+			{
+				"ThinkInterval" "1"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"		"scripts/vscripts/custom_abilities.lua"
+						"Function"			"running_thinker"
+						"Target" "POINT"
+					}
+				}	
+			}
+		}
+	}
+
+
+	"custom_boom"
+	{
+		"AbilityName"					"zombie_rage"
+		// Describe the ability interactions. Does it have a target? It is a channel? etc.
+		// See k_abilitylist.txt for a list of the ones I know of.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		// BaseClass "ability_datadriven" is what is normally used
+		//	We could use a skill that we want to mimic though, like "tiny_toss"
+		"BaseClass" 					"ability_datadriven"
+		"AbilityTextureName"            "item_mask_of_madness"
+
+		"AbilityCooldown"				"16.0"
+		"AbilityManaCost"				"0"
+		"AbilityChannelTime"			"2.0"
+		"AbilityCastAnimation"			"ACT_DOTA_TELEPORT"
+
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"Target"		"CASTER"
+				"ModifierName"	"modifier_channel_start"
+			}
+			
+			"FireSound"
+			{
+				"EffectName"		"Ability.ZombieRage.Cast"
+				"Target"			"CASTER"
+			}
+		}
+		
+		"OnChannelSucceeded"
+		{
+			"ApplyModifier"
+			{
+				"Target"		"CASTER"
+				"ModifierName"	"modifier_rage"
+			}
+			
+			"RemoveModifier"
+			{
+				"Target"		"CASTER"
+				"ModifierName"	"modifier_channel_start"
+			}
+
+			"FireSound"
+			{
+				"EffectName"	"Ability.ZombieRage"
+				"Target"		"CASTER"
+			}
+		}
+		
+		"OnChannelInterrupted"
+		{
+			"RemoveModifier"
+			{
+				"Target"		"CASTER"
+				"ModifierName"	"modifier_channel_start"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_channel_start"
+			{
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/test_particle/channel_field_1.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"CASTER"
+					
+						"ControlPoints"
+						{
+							"00"		"0 0 5"
+						}
+					}
+				}
+			}
+			
+			"modifier_rage"
+			{
+				"Duration"		"%rage_duration"
+				
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"		"particles/test_particle/damage_immunity.vpcf"
+						"EffectAttachType"	"follow_origin"
+						"Target"			"CASTER"
+					}
+				}
+				
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_BASEATTACK_BONUSDAMAGE"				"%rage_bonus_damage"
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT"			"%rage_bonus_speed"
+					"MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE"			"-100"
+					"MODIFIER_PROPERTY_INCOMING_PHYSICAL_DAMAGE_PERCENTAGE" "-100"
+				}
+				
+				"OnDestroy"
+				{
+					"Stun"
+					{
+						"Duration"			"%stun_duration"
+						"Target"			"CASTER"
+					}
+					
+					"FireSound"
+					{
+						"EffectName"	"Ability.ZombieRage.Stun"
+						"Target"		"CASTER"
+					}
+				}
+			}
+		}
+
+		// These link to the values prefixed by % above
+		// And allow tuning of values
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"rage_bonus_damage"	"280 380 480 580"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"rage_bonus_speed"	"185"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"rage_duration"		"6.0"
+			}
+			"04"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"stun_duration"		"3.0"
+			}
+		}
+	}
+
+}
